@@ -18,11 +18,15 @@ screen = pygame.display.set_mode([800, 600])
 runGame = True
 timer = pygame.time.Clock()
 
-appleimg = pygame.image.load("apple.png")
-applerect = pygame.Rect((0, 0), (100, 100))
+font = pygame.font.Font("freesansbold.ttf", 32)
+score = 0
 
-basketimg = pygame.image.load("basket.png")
-basketrect = pygame.Rect((700, 500), (100, 100))
+appleimg = pygame.image.load("week 5/Apple.png")
+applerect = appleimg.get_rect()
+
+basketimg = pygame.image.load("week 5/basket.png")
+basketrect = basketimg.get_rect()
+basketrect.y = 500
 
 speed = 5
 score = 0
@@ -35,8 +39,7 @@ while runGame:
     applerect.y += speed
 
     if (applerect.y > 600):
-        applerect.y = -100
-        applerect.x = random.randint(0, 700)
+        runGame = False
 
     basketrect.x = pygame.mouse.get_pos()[0]
 
@@ -52,6 +55,8 @@ while runGame:
     screen.fill((255, 255, 255))
     screen.blit(appleimg, (applerect.x, applerect.y))
     screen.blit(basketimg, (basketrect.x, basketrect.y))
+    scoretxt = font.render("Score: " + str(score), True, "black", "white")
+    screen.blit(scoretxt, (0, 0))
     
     pygame.display.update()
     timer.tick(60)
